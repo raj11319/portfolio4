@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi'
+import emailjs from '@emailjs/browser'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -40,18 +41,38 @@ const Contact = () => {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Simulate form submission
     setStatus('sending')
     
-    setTimeout(() => {
+    try {
+      // EmailJS configuration
+      const serviceId = 'YOUR_SERVICE_ID' // Replace with your EmailJS service ID
+      const templateId = 'YOUR_TEMPLATE_ID' // Replace with your EmailJS template ID
+      const publicKey = 'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
+      
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        to_email: 'raj113192007@gmail.com',
+        message: formData.message,
+        reply_to: formData.email
+      }
+      
+      await emailjs.send(serviceId, templateId, templateParams, publicKey)
+      
       setStatus('success')
       setFormData({ name: '', email: '', message: '' })
       
       // Reset status after 3 seconds
       setTimeout(() => setStatus(''), 3000)
-    }, 1500)
+    } catch (error) {
+      console.error('EmailJS Error:', error)
+      setStatus('error')
+      
+      // Reset status after 3 seconds
+      setTimeout(() => setStatus(''), 3000)
+    }
   }
 
   return (
@@ -148,6 +169,15 @@ const Contact = () => {
                   Send me a message
                 </h3>
                 
+                {/* Status Messages */}
+                {status === 'error' && (
+                  <div className="mb-4 p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg">
+                    <p className="text-red-600 dark:text-red-400 text-sm">
+                      Failed to send message. Please try again or contact me directly at raj113192007@gmail.com
+                    </p>
+                  </div>
+                )}
+                
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -204,8 +234,8 @@ const Contact = () => {
                   >
                     {status === 'sending' ? (
                       <>
-                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white\" xmlns="http://www.w3.org/2000/svg\" fill="none\" viewBox="0 0 24 24">
-                          <circle className="opacity-25\" cx="12\" cy="12\" r="10\" stroke="currentColor\" strokeWidth="4"></circle>
+                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
                         Sending...
@@ -217,6 +247,13 @@ const Contact = () => {
                     )}
                   </button>
                 </form>
+                
+                <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg">
+                  <p className="text-blue-600 dark:text-blue-400 text-sm">
+                    <strong>Note:</strong> To enable email functionality, you need to set up EmailJS with your service credentials. 
+                    Check the console for setup instructions.
+                  </p>
+                </div>
               </div>
             </motion.div>
           </div>
