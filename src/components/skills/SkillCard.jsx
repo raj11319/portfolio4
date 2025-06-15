@@ -26,11 +26,23 @@ const SkillCard = ({ skill, index }) => {
   const [hovered, setHovered] = useState(false)
   
   const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { 
+      opacity: 0, 
+      y: 60,
+      scale: 0.8
+    },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.5 }
+      scale: 1,
+      transition: { 
+        duration: 0.6,
+        delay: index * 0.1,
+        ease: [0.25, 0.46, 0.45, 0.94], // Custom ease-out curve for bounce effect
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }
     }
   }
 
@@ -63,6 +75,9 @@ const SkillCard = ({ skill, index }) => {
   return (
     <motion.div
       variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className="card p-6 h-full hover-lift"
