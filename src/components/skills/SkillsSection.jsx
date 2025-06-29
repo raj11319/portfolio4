@@ -36,20 +36,20 @@ const SkillsSection = () => {
 
   return (
     <section id="skills" className="py-20 relative overflow-hidden">
-      {/* Enhanced Background Elements */}
-      <Parallax translateY={[40, -40]} className="absolute top-20 left-0 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl" />
-      <Parallax translateY={[-40, 40]} className="absolute bottom-20 right-0 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl" />
+      {/* Subtle Background Elements */}
+      <Parallax translateY={[40, -40]} className="absolute top-20 left-0 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl" />
+      <Parallax translateY={[-40, 40]} className="absolute bottom-20 right-0 w-96 h-96 bg-secondary-500/5 rounded-full blur-3xl" />
       
-      {/* Additional futuristic elements */}
+      {/* Minimal futuristic elements */}
       <motion.div
-        className="absolute top-40 right-10 w-32 h-32 border border-accent-500/20 rounded-lg rotate-45"
+        className="absolute top-40 right-10 w-24 h-24 border border-accent-500/10 rounded-lg rotate-45"
         animate={{
           rotate: [45, 405],
-          scale: [1, 1.1, 1],
-          opacity: [0.3, 0.6, 0.3]
+          scale: [1, 1.05, 1],
+          opacity: [0.1, 0.2, 0.1]
         }}
         transition={{
-          duration: 15,
+          duration: 20,
           repeat: Infinity,
           ease: "linear"
         }}
@@ -65,7 +65,7 @@ const SkillsSection = () => {
           >
             <motion.h2 
               variants={titleVariants}
-              className="text-4xl md:text-5xl font-bold text-white text-center mb-4 neon-text"
+              className="text-4xl md:text-5xl font-bold text-white text-center mb-4 professional-highlight"
             >
               My Skills
             </motion.h2>
@@ -73,9 +73,6 @@ const SkillsSection = () => {
             <motion.div
               variants={titleVariants}
               className="w-24 h-1 bg-gradient-to-r from-primary-400 to-secondary-400 mx-auto mb-8 rounded-full"
-              style={{
-                boxShadow: '0 0 10px rgba(59, 130, 246, 0.5)'
-              }}
             />
             
             <motion.p 
@@ -92,8 +89,8 @@ const SkillsSection = () => {
           {skillsData.map((skill, index) => (
             <Parallax
               key={index}
-              translateY={[10, -10]}
-              scale={[0.98, 1.02]}
+              translateY={[8, -8]}
+              scale={[0.99, 1.01]}
               easing="easeInQuad"
             >
               <SkillCard skill={skill} index={index} />

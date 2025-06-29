@@ -8,7 +8,7 @@ const Loader = () => {
     },
     exit: {
       opacity: 0,
-      scale: 1.1,
+      scale: 1.05,
       transition: {
         duration: 0.8,
         ease: [0.16, 1, 0.3, 1]
@@ -51,18 +51,6 @@ const Loader = () => {
     }
   }
 
-  const glowVariants = {
-    animate: {
-      scale: [1, 1.3, 1],
-      opacity: [0.3, 0.8, 0.3],
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
-  }
-
   return (
     <motion.div 
       variants={containerVariants}
@@ -71,45 +59,40 @@ const Loader = () => {
       exit="exit"
       className="fixed inset-0 bg-gradient-to-br from-gray-900 via-slate-900 to-gray-800 flex flex-col items-center justify-center z-50"
     >
-      {/* Futuristic background pattern */}
+      {/* Subtle background pattern */}
       <div 
-        className="absolute inset-0 opacity-5"
+        className="absolute inset-0 opacity-3"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
+            linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px)
           `,
           backgroundSize: '50px 50px'
         }}
       />
       
-      {/* Enhanced loading animation */}
+      {/* Professional loading animation */}
       <motion.div
         variants={circleVariants}
-        className="relative w-28 h-28 mb-8"
+        className="relative w-24 h-24 mb-8"
       >
-        {/* Multiple glow layers */}
+        {/* Subtle glow layer */}
         <motion.div
-          variants={glowVariants}
-          className="absolute inset-0 rounded-full bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 blur-2xl opacity-20"
-        />
-        
-        <motion.div
-          className="absolute -inset-2 rounded-full bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 blur-xl opacity-30"
+          className="absolute inset-0 rounded-full bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 blur-lg opacity-10"
           animate={{ 
-            scale: [1, 1.2, 1],
-            rotate: [0, 360]
+            scale: [1, 1.1, 1],
+            opacity: [0.1, 0.2, 0.1]
           }}
           transition={{ 
-            duration: 8, 
+            duration: 3, 
             repeat: Infinity,
-            ease: "linear"
+            ease: "easeInOut"
           }}
         />
         
-        {/* Main spinner with futuristic design */}
+        {/* Main spinner with professional design */}
         <motion.div 
-          className="relative w-full h-full rounded-full border-4 border-transparent bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 p-1"
+          className="relative w-full h-full rounded-full border-3 border-transparent bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 p-0.5"
           animate={{ rotate: 360 }}
           transition={{ 
             repeat: Infinity, 
@@ -117,8 +100,7 @@ const Loader = () => {
             ease: "linear" 
           }}
           style={{
-            background: 'conic-gradient(from 0deg, #3b82f6, #8b5cf6, #f59e0b, #3b82f6)',
-            boxShadow: '0 0 30px rgba(59, 130, 246, 0.5)'
+            background: 'conic-gradient(from 0deg, #3b82f6, #8b5cf6, #f59e0b, #3b82f6)'
           }}
         >
           <div className="w-full h-full rounded-full bg-gray-900" />
@@ -126,72 +108,42 @@ const Loader = () => {
         
         {/* Inner rotating ring */}
         <motion.div
-          className="absolute inset-4 rounded-full border-2 border-primary-300/50"
+          className="absolute inset-3 rounded-full border border-primary-300/30"
           animate={{ rotate: -360 }}
           transition={{ 
             repeat: Infinity, 
             duration: 1.5, 
             ease: "linear" 
           }}
-          style={{
-            boxShadow: 'inset 0 0 20px rgba(59, 130, 246, 0.3)'
-          }}
         />
         
-        {/* Center pulsing core */}
+        {/* Center core */}
         <motion.div
-          className="absolute inset-8 rounded-full bg-gradient-to-r from-primary-400 to-secondary-400"
+          className="absolute inset-6 rounded-full bg-gradient-to-r from-primary-400 to-secondary-400"
           animate={{ 
-            scale: [1, 1.3, 1],
-            opacity: [0.7, 1, 0.7]
+            scale: [1, 1.1, 1],
+            opacity: [0.8, 1, 0.8]
           }}
           transition={{ 
-            duration: 1, 
+            duration: 1.5, 
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          style={{
-            boxShadow: '0 0 20px rgba(59, 130, 246, 0.8)'
-          }}
         />
-        
-        {/* Orbiting particles */}
-        {[0, 1, 2].map((index) => (
-          <motion.div
-            key={index}
-            className="absolute w-2 h-2 bg-primary-400 rounded-full"
-            style={{
-              top: '50%',
-              left: '50%',
-              transformOrigin: '0 0',
-            }}
-            animate={{
-              rotate: 360,
-              x: Math.cos((index * 120 * Math.PI) / 180) * 40 - 4,
-              y: Math.sin((index * 120 * Math.PI) / 180) * 40 - 4,
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "linear",
-              delay: index * 0.3
-            }}
-          />
-        ))}
       </motion.div>
       
-      {/* Enhanced loading text with futuristic styling */}
+      {/* Professional loading text */}
       <motion.div
         variants={textVariants}
         className="text-center"
       >
         <motion.p
-          className="text-gray-200 text-xl font-medium mb-4 neon-text"
+          className="text-gray-200 text-xl font-medium mb-4"
           animate={{ 
-            opacity: [0.7, 1, 0.7]
+            opacity: [0.8, 1, 0.8]
           }}
           transition={{ 
-            duration: 1.5, 
+            duration: 2, 
             repeat: Infinity,
             ease: "easeInOut"
           }}
@@ -199,7 +151,7 @@ const Loader = () => {
           Loading amazing skills...
         </motion.p>
         
-        {/* Futuristic progress dots */}
+        {/* Professional progress dots */}
         <motion.div
           className="flex justify-center space-x-2"
           animate={{
@@ -213,28 +165,25 @@ const Loader = () => {
           {[0, 1, 2].map((index) => (
             <motion.div
               key={index}
-              className="w-3 h-3 bg-primary-400 rounded-full"
+              className="w-2 h-2 bg-primary-400 rounded-full"
               animate={{
-                y: [0, -15, 0],
-                opacity: [0.5, 1, 0.5],
-                scale: [1, 1.2, 1]
+                y: [0, -8, 0],
+                opacity: [0.6, 1, 0.6],
+                scale: [1, 1.1, 1]
               }}
               transition={{
-                duration: 0.8,
+                duration: 0.6,
                 repeat: Infinity,
                 delay: index * 0.2,
                 ease: [0.16, 1, 0.3, 1]
-              }}
-              style={{
-                boxShadow: '0 0 10px rgba(59, 130, 246, 0.5)'
               }}
             />
           ))}
         </motion.div>
         
-        {/* Loading percentage simulation */}
+        {/* Professional loading bar */}
         <motion.div
-          className="mt-6 w-64 h-1 bg-gray-700 rounded-full overflow-hidden"
+          className="mt-6 w-48 h-0.5 bg-gray-700 rounded-full overflow-hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
@@ -246,9 +195,6 @@ const Loader = () => {
             transition={{ 
               duration: 2,
               ease: "easeInOut"
-            }}
-            style={{
-              boxShadow: '0 0 10px rgba(59, 130, 246, 0.5)'
             }}
           />
         </motion.div>

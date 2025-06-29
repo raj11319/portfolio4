@@ -98,7 +98,7 @@ const Hero = () => {
             <Parallax translateY={[15, -15]} speed={-2}>
               <motion.span 
                 variants={itemVariants}
-                className="text-primary-400 font-semibold text-lg block mb-2 glow-text"
+                className="text-primary-400 font-semibold text-lg block mb-2"
               >
                 Hello, I'm
               </motion.span>
@@ -107,7 +107,7 @@ const Hero = () => {
                 variants={itemVariants}
                 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
               >
-                <span className="text-gradient neon-text">
+                <span className="text-gradient">
                   Raj Srivastava
                 </span>
               </motion.h1>
@@ -118,7 +118,7 @@ const Hero = () => {
               >
                 <span>A passionate technologist with expertise in </span>
                 <motion.span 
-                  className={`font-bold ${skills[currentSkillIndex].color} glow-text`}
+                  className={`font-bold ${skills[currentSkillIndex].color}`}
                   key={currentSkillIndex}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -146,15 +146,11 @@ const Hero = () => {
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
                   <span className="relative z-10 font-semibold">Explore My Skills</span>
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-lg opacity-0 group-hover:opacity-100"
-                    transition={{ duration: 0.3 }}
-                  />
                 </motion.a>
                 
                 <motion.a 
                   href="#contact" 
-                  className="px-6 py-3 border-2 border-gray-400 text-gray-200 rounded-lg font-semibold relative overflow-hidden group btn-futuristic"
+                  className="px-6 py-3 border-2 border-gray-400 text-gray-200 rounded-lg font-semibold relative overflow-hidden group btn-professional"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -170,38 +166,25 @@ const Hero = () => {
               variants={imageVariants}
               className="relative w-full max-w-md"
             >
-              {/* Enhanced glow effect with multiple layers */}
+              {/* Subtle glow effect with reduced intensity */}
               <motion.div 
-                className="absolute -inset-2 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 rounded-full blur-2xl opacity-30"
+                className="absolute -inset-2 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 rounded-full blur-xl opacity-15"
                 animate={{ 
-                  scale: [1, 1.2, 1],
+                  scale: [1, 1.1, 1],
                   rotate: [0, 180, 360]
                 }}
                 transition={{ 
-                  duration: 10, 
+                  duration: 12, 
                   repeat: Infinity,
                   ease: "linear"
                 }}
               />
               
               <motion.div 
-                className="absolute -inset-1 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 rounded-full blur-lg opacity-40"
-                animate={{ 
-                  scale: [1.1, 0.9, 1.1],
-                  rotate: [360, 0, 360]
-                }}
-                transition={{ 
-                  duration: 8, 
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-              />
-              
-              <motion.div 
-                className="relative bg-gray-800/90 backdrop-blur-lg rounded-full overflow-hidden p-2 shadow-2xl glow-border"
+                className="relative bg-gray-800/90 backdrop-blur-lg rounded-full overflow-hidden p-2 shadow-xl subtle-border"
                 whileHover={{ 
-                  scale: 1.05,
-                  rotate: 2
+                  scale: 1.03,
+                  rotate: 1
                 }}
                 transition={{ 
                   type: "spring", 
@@ -213,7 +196,7 @@ const Hero = () => {
                   src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
                   alt="Raj Srivastava" 
                   className="w-full h-auto rounded-full"
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 />
               </motion.div>
@@ -221,7 +204,7 @@ const Hero = () => {
           </Parallax>
         </motion.div>
         
-        {/* Enhanced futuristic scroll indicator */}
+        {/* Professional scroll indicator */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -233,8 +216,8 @@ const Hero = () => {
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
         >
           <motion.span 
-            className="text-sm text-gray-300 mb-3 font-semibold glow-text"
-            animate={{ opacity: [0.6, 1, 0.6] }}
+            className="text-sm text-gray-300 mb-3 font-semibold"
+            animate={{ opacity: [0.7, 1, 0.7] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
             Scroll Down
@@ -242,7 +225,7 @@ const Hero = () => {
           
           <motion.div
             className="w-6 h-10 border-2 border-primary-400 rounded-full flex justify-center relative overflow-hidden"
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: 1.05 }}
           >
             <motion.div
               className="w-1 h-3 bg-primary-400 rounded-full mt-2"
@@ -251,20 +234,6 @@ const Hero = () => {
                 duration: 1.5, 
                 repeat: Infinity,
                 ease: [0.16, 1, 0.3, 1]
-              }}
-            />
-            
-            {/* Glowing effect */}
-            <motion.div
-              className="absolute inset-0 border-2 border-primary-400 rounded-full"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.5, 0, 0.5]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
               }}
             />
           </motion.div>
