@@ -44,9 +44,17 @@ const About = () => {
           variants={variants}
           className="max-w-4xl mx-auto relative z-10"
         >
-          <motion.h2 variants={itemVariants} className="section-title text-center mx-auto">
+          <motion.h2 
+            variants={itemVariants} 
+            className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white text-center mb-4"
+          >
             About Me
           </motion.h2>
+          
+          <motion.div
+            variants={itemVariants}
+            className="w-24 h-1 bg-gradient-to-r from-primary-600 to-secondary-600 mx-auto mb-12 rounded-full"
+          />
           
           <Parallax speed={-5}>
             <motion.div variants={itemVariants} className="card p-8 md:p-10">
@@ -66,23 +74,23 @@ const About = () => {
                 
                 <div className="md:w-2/3">
                   <Parallax translateX={[10, -10]}>
-                    <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                       Passionate Technologist & Problem Solver
                     </h3>
                     
-                    <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+                    <p className="text-gray-800 dark:text-gray-200 mb-4 leading-relaxed font-medium">
                       I'm Raj Srivastava, a multidisciplinary technologist with a passion for creating innovative solutions through code. With expertise spanning AI/ML, Data Science, Web Development, and more, I bring a unique blend of technical knowledge and creative problem-solving to every project.
                     </p>
                     
-                    <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+                    <p className="text-gray-800 dark:text-gray-200 mb-6 leading-relaxed font-medium">
                       My journey in technology has allowed me to work across various domains, from building intelligent systems with machine learning to creating intuitive user experiences with modern web technologies. I'm constantly exploring new technologies and approaches to expand my skill set and deliver exceptional results.
                     </p>
                     
                     <div className="flex flex-wrap gap-3">
-                      <span className="px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-sm">Problem Solver</span>
-                      <span className="px-3 py-1 bg-secondary-100 dark:bg-secondary-900/30 text-secondary-700 dark:text-secondary-300 rounded-full text-sm">Fast Learner</span>
-                      <span className="px-3 py-1 bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300 rounded-full text-sm">Team Player</span>
-                      <span className="px-3 py-1 bg-success-100 dark:bg-success-900/30 text-success-700 dark:text-success-300 rounded-full text-sm">Detail Oriented</span>
+                      <span className="px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 rounded-full text-sm font-semibold">Problem Solver</span>
+                      <span className="px-3 py-1 bg-secondary-100 dark:bg-secondary-900/30 text-secondary-800 dark:text-secondary-300 rounded-full text-sm font-semibold">Fast Learner</span>
+                      <span className="px-3 py-1 bg-accent-100 dark:bg-accent-900/30 text-accent-800 dark:text-accent-300 rounded-full text-sm font-semibold">Team Player</span>
+                      <span className="px-3 py-1 bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300 rounded-full text-sm font-semibold">Detail Oriented</span>
                     </div>
                   </Parallax>
                 </div>

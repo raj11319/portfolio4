@@ -35,7 +35,7 @@ const SkillsSection = () => {
   }
 
   return (
-    <section id="skills" className="py-20 relative overflow-hidden">
+    <section id="skills" className="py-20 relative overflow-hidden bg-gray-50 dark:bg-gray-900/50">
       {/* Background Elements */}
       <Parallax translateY={[40, -40]} className="absolute top-20 left-0 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl" />
       <Parallax translateY={[-40, 40]} className="absolute bottom-20 right-0 w-96 h-96 bg-secondary-500/5 rounded-full blur-3xl" />
@@ -50,14 +50,19 @@ const SkillsSection = () => {
           >
             <motion.h2 
               variants={titleVariants}
-              className="section-title text-center mx-auto"
+              className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white text-center mb-4"
             >
               My Skills
             </motion.h2>
             
+            <motion.div
+              variants={titleVariants}
+              className="w-24 h-1 bg-gradient-to-r from-primary-600 to-secondary-600 mx-auto mb-8 rounded-full"
+            />
+            
             <motion.p 
               variants={titleVariants}
-              className="text-center text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-12"
+              className="text-center text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-12 text-lg font-medium leading-relaxed"
             >
               Explore my diverse skill set spanning multiple technology domains. 
               Hover over each skill to see a unique animation that visually represents it.
