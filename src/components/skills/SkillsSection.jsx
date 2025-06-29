@@ -35,10 +35,25 @@ const SkillsSection = () => {
   }
 
   return (
-    <section id="skills" className="py-20 relative overflow-hidden bg-gray-50 dark:bg-gray-900/50">
-      {/* Background Elements */}
-      <Parallax translateY={[40, -40]} className="absolute top-20 left-0 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl" />
-      <Parallax translateY={[-40, 40]} className="absolute bottom-20 right-0 w-96 h-96 bg-secondary-500/5 rounded-full blur-3xl" />
+    <section id="skills" className="py-20 relative overflow-hidden">
+      {/* Enhanced Background Elements */}
+      <Parallax translateY={[40, -40]} className="absolute top-20 left-0 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl" />
+      <Parallax translateY={[-40, 40]} className="absolute bottom-20 right-0 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl" />
+      
+      {/* Additional futuristic elements */}
+      <motion.div
+        className="absolute top-40 right-10 w-32 h-32 border border-accent-500/20 rounded-lg rotate-45"
+        animate={{
+          rotate: [45, 405],
+          scale: [1, 1.1, 1],
+          opacity: [0.3, 0.6, 0.3]
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+      />
 
       <div className="container-custom">
         <Parallax speed={-5}>
@@ -50,19 +65,22 @@ const SkillsSection = () => {
           >
             <motion.h2 
               variants={titleVariants}
-              className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white text-center mb-4"
+              className="text-4xl md:text-5xl font-bold text-white text-center mb-4 neon-text"
             >
               My Skills
             </motion.h2>
             
             <motion.div
               variants={titleVariants}
-              className="w-24 h-1 bg-gradient-to-r from-primary-600 to-secondary-600 mx-auto mb-8 rounded-full"
+              className="w-24 h-1 bg-gradient-to-r from-primary-400 to-secondary-400 mx-auto mb-8 rounded-full"
+              style={{
+                boxShadow: '0 0 10px rgba(59, 130, 246, 0.5)'
+              }}
             />
             
             <motion.p 
               variants={titleVariants}
-              className="text-center text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-12 text-lg font-medium leading-relaxed"
+              className="text-center text-gray-300 max-w-3xl mx-auto mb-12 text-lg font-medium leading-relaxed"
             >
               Explore my diverse skill set spanning multiple technology domains. 
               Hover over each skill to see a unique animation that visually represents it.
