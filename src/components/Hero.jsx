@@ -86,39 +86,44 @@ const Hero = () => {
   }
 
   return (
-    <section id="home" className="min-h-screen flex items-center pt-16 relative overflow-hidden">
-      <div className="container-custom py-16 relative z-10">
+    <section id="home" className="min-h-screen flex items-center pt-safe-top relative overflow-hidden">
+      {/* Enhanced responsive padding */}
+      <div className="container-custom section-padding relative z-10">
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="flex flex-col lg:flex-row items-center justify-between"
+          className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12"
         >
-          <div className="lg:w-1/2 mb-12 lg:mb-0">
+          {/* Content Section - Enhanced responsive layout */}
+          <div className="w-full lg:w-1/2 text-center lg:text-left order-2 lg:order-1">
             <Parallax translateY={[15, -15]} speed={-2}>
               <motion.span 
                 variants={itemVariants}
-                className="text-primary-400 font-semibold text-lg block mb-2"
+                className="text-primary-400 font-semibold block mb-2"
+                style={{ fontSize: 'clamp(1rem, 3vw, 1.25rem)' }}
               >
                 Hello, I'm
               </motion.span>
               
               <motion.h1 
                 variants={itemVariants}
-                className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
+                className="font-bold mb-4 lg:mb-6"
+                style={{ fontSize: 'clamp(2.5rem, 8vw, 5rem)' }}
               >
-                <span className="text-gradient">
+                <span className="text-gradient block">
                   Raj Srivastava
                 </span>
               </motion.h1>
               
               <motion.div 
                 variants={itemVariants}
-                className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed font-medium"
+                className="text-gray-200 mb-6 lg:mb-8 leading-relaxed font-medium"
+                style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }}
               >
-                <span>A passionate technologist with expertise in </span>
+                <span className="block mb-2">A passionate technologist with expertise in </span>
                 <motion.span 
-                  className={`font-bold ${skills[currentSkillIndex].color}`}
+                  className={`font-bold ${skills[currentSkillIndex].color} block`}
                   key={currentSkillIndex}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -126,21 +131,23 @@ const Hero = () => {
                 >
                   {currentText}
                   <motion.span 
-                    className="inline-block w-0.5 h-6 bg-current ml-1"
+                    className="inline-block w-0.5 bg-current ml-1"
+                    style={{ height: 'clamp(1rem, 3vw, 1.5rem)' }}
                     animate={{ opacity: [1, 0] }}
                     transition={{ duration: 0.8, repeat: Infinity }}
                   />
                 </motion.span>
-                <span>, and more.</span>
+                <span className="block mt-2">and more.</span>
               </motion.div>
               
+              {/* Enhanced responsive buttons */}
               <motion.div 
                 variants={itemVariants}
-                className="flex flex-wrap gap-4"
+                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
               >
                 <motion.a 
                   href="#skills" 
-                  className="btn-primary group relative overflow-hidden"
+                  className="btn-primary group relative overflow-hidden text-center"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -150,7 +157,7 @@ const Hero = () => {
                 
                 <motion.a 
                   href="#contact" 
-                  className="px-6 py-3 border-2 border-gray-400 text-gray-200 rounded-lg font-semibold relative overflow-hidden group btn-professional"
+                  className="btn-professional text-center"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -161,10 +168,15 @@ const Hero = () => {
             </Parallax>
           </div>
           
-          <Parallax translateY={[-10, 10]} speed={-1} className="lg:w-1/2 flex justify-center">
+          {/* Image Section - Enhanced responsive layout */}
+          <Parallax 
+            translateY={[-10, 10]} 
+            speed={-1} 
+            className="w-full lg:w-1/2 flex justify-center order-1 lg:order-2"
+          >
             <motion.div 
               variants={imageVariants}
-              className="relative w-full max-w-md"
+              className="relative w-full max-w-sm lg:max-w-md"
             >
               {/* Subtle glow effect with reduced intensity */}
               <motion.div 
@@ -204,7 +216,7 @@ const Hero = () => {
           </Parallax>
         </motion.div>
         
-        {/* Professional scroll indicator */}
+        {/* Enhanced responsive scroll indicator */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -216,7 +228,7 @@ const Hero = () => {
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
         >
           <motion.span 
-            className="text-sm text-gray-300 mb-3 font-semibold"
+            className="text-sm text-gray-300 mb-3 font-semibold hidden sm:block"
             animate={{ opacity: [0.7, 1, 0.7] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
@@ -224,11 +236,19 @@ const Hero = () => {
           </motion.span>
           
           <motion.div
-            className="w-6 h-10 border-2 border-primary-400 rounded-full flex justify-center relative overflow-hidden"
+            className="border-2 border-primary-400 rounded-full flex justify-center relative overflow-hidden"
+            style={{ 
+              width: 'clamp(1.5rem, 4vw, 2rem)', 
+              height: 'clamp(2.5rem, 6vw, 3rem)' 
+            }}
             whileHover={{ scale: 1.05 }}
           >
             <motion.div
-              className="w-1 h-3 bg-primary-400 rounded-full mt-2"
+              className="bg-primary-400 rounded-full mt-2"
+              style={{ 
+                width: 'clamp(0.25rem, 1vw, 0.5rem)', 
+                height: 'clamp(0.75rem, 2vw, 1rem)' 
+              }}
               animate={{ y: [0, 12, 0] }}
               transition={{ 
                 duration: 1.5, 

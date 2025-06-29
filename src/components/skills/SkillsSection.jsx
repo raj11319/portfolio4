@@ -35,14 +35,18 @@ const SkillsSection = () => {
   }
 
   return (
-    <section id="skills" className="py-20 relative overflow-hidden">
+    <section id="skills" className="section-padding relative overflow-hidden">
       {/* Subtle Background Elements */}
       <Parallax translateY={[40, -40]} className="absolute top-20 left-0 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl" />
       <Parallax translateY={[-40, 40]} className="absolute bottom-20 right-0 w-96 h-96 bg-secondary-500/5 rounded-full blur-3xl" />
       
       {/* Minimal futuristic elements */}
       <motion.div
-        className="absolute top-40 right-10 w-24 h-24 border border-accent-500/10 rounded-lg rotate-45"
+        className="absolute top-40 right-10 border border-accent-500/10 rounded-lg rotate-45"
+        style={{ 
+          width: 'clamp(1.5rem, 4vw, 2rem)', 
+          height: 'clamp(1.5rem, 4vw, 2rem)' 
+        }}
         animate={{
           rotate: [45, 405],
           scale: [1, 1.05, 1],
@@ -62,10 +66,12 @@ const SkillsSection = () => {
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
             variants={containerVariants}
+            className="text-center mb-12 lg:mb-16"
           >
             <motion.h2 
               variants={titleVariants}
-              className="text-4xl md:text-5xl font-bold text-white text-center mb-4 professional-highlight"
+              className="font-bold text-white professional-highlight mb-4"
+              style={{ fontSize: 'clamp(2rem, 6vw, 4rem)' }}
             >
               My Skills
             </motion.h2>
@@ -77,7 +83,8 @@ const SkillsSection = () => {
             
             <motion.p 
               variants={titleVariants}
-              className="text-center text-gray-300 max-w-3xl mx-auto mb-12 text-lg font-medium leading-relaxed"
+              className="text-gray-300 max-w-3xl mx-auto font-medium leading-relaxed"
+              style={{ fontSize: 'clamp(1rem, 2.5vw, 1.125rem)' }}
             >
               Explore my diverse skill set spanning multiple technology domains. 
               Hover over each skill to see a unique animation that visually represents it.
@@ -85,6 +92,7 @@ const SkillsSection = () => {
           </motion.div>
         </Parallax>
         
+        {/* Enhanced responsive grid */}
         <div className="skill-grid relative z-10">
           {skillsData.map((skill, index) => (
             <Parallax

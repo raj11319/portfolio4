@@ -26,6 +26,31 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (mobileMenuOpen && !event.target.closest('.mobile-menu-container')) {
+        setMobileMenuOpen(false)
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
+  }, [mobileMenuOpen])
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [mobileMenuOpen])
+
   const headerVariants = {
     initial: { y: -100, opacity: 0 },
     animate: { 
@@ -83,65 +108,46 @@ const Header = () => {
   }
 
   return (
-    <motion.header 
-      variants={headerVariants}
-      initial="initial"
-      animate="animate"
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ease-out ${
-        isScrolled 
-          ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-lg py-3' 
-          : 'bg-transparent py-6'
-      }`}
-    >
-      <div className="container-custom">
-        <div className="flex items-center justify-between">
-          {/* Logo with enhanced animation */}
-          <motion.div 
-            className="flex items-center"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          >
-            <motion.a 
-              href="#home" 
-              className="text-2xl font-bold text-primary-600 dark:text-primary-400 relative"
-              whileHover={{ 
-                textShadow: "0 0 8px rgba(59, 130, 246, 0.5)"
-              }}
-            >
-              Raj<span className="text-secondary-600 dark:text-secondary-400">Srivastava</span>
-              <motion.div
-                className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-primary-500 to-secondary-500"
-                initial={{ width: 0 }}
-                whileHover={{ width: "100%" }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.a>
-          </motion.div>
-
-          {/* Desktop Navigation with staggered animations */}
-          <motion.nav 
-            className="hidden md:flex items-center space-x-8"
-            initial="initial"
-            animate="animate"
-            variants={{
-              animate: {
-                transition: {
-                  staggerChildren: 0.1,
-                  delayChildren: 0.3
-                }
-              }
+    <>
+      <motion.header 
+        variants={headerVariants}
+        initial="initial"
+        animate="animate"
+        className={`fixed top-0 w-full z-50 transition-all duration-500 ease-out mobile-menu-container ${
+          isScrolled 
+            ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-lg' 
+            : 'bg-transparent'
+        }`}
+        style={{ 
+          paddingTop: 'env(safe-area-inset-top)',
+          paddingLeft: 'env(safe-area-inset-left)',
+          paddingRight: 'env(safe-area-inset-right)'
+        }}
+      >
+        <div className="container-custom">
+          <div 
+            className="flex items-center justify-between"
+            style={{ 
+              height: 'clamp(60px, 10vw, 80px)',
+              paddingTop: isScrolled ? '0.75rem' : 'clamp(1rem, 3vw, 1.5rem)',
+              paddingBottom: isScrolled ? '0.75rem' : 'clamp(1rem, 3vw, 1.5rem)'
             }}
           >
-            {navLinks.map((link, index) => (
+            {/* Enhanced responsive logo */}
+            <motion.div 
+              className="flex items-center"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
               <motion.a 
-                key={index}
-                href={link.href}
-                variants={linkVariants}
-                className="font-medium text-gray-700 dark:text-gray-300 relative group"
-                whileHover={{ y: -2 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                href="#home" 
+                className="font-bold text-primary-600 dark:text-primary-400 relative"
+                style={{ fontSize: 'clamp(1.25rem, 4vw, 2rem)' }}
+                whileHover={{ 
+                  textShadow: "0 0 8px rgba(59, 130, 246, 0.5)"
+                }}
               >
-                {link.name}
+                Raj<span className="text-secondary-600 dark:text-secondary-400">Srivastava</span>
                 <motion.div
                   className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-primary-500 to-secondary-500"
                   initial={{ width: 0 }}
@@ -149,113 +155,181 @@ const Header = () => {
                   transition={{ duration: 0.3 }}
                 />
               </motion.a>
-            ))}
-          </motion.nav>
+            </motion.div>
 
-          {/* Theme Toggle and Mobile Menu with enhanced animations */}
-          <div className="flex items-center space-x-4">
-            <motion.button
-              onClick={toggleTheme}
-              className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 relative overflow-hidden"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              aria-label="Toggle theme"
+            {/* Enhanced desktop navigation */}
+            <motion.nav 
+              className="hidden md:flex items-center"
+              style={{ gap: 'clamp(1rem, 3vw, 2rem)' }}
+              initial="initial"
+              animate="animate"
+              variants={{
+                animate: {
+                  transition: {
+                    staggerChildren: 0.1,
+                    delayChildren: 0.3
+                  }
+                }
+              }}
             >
-              <AnimatePresence mode="wait">
-                {darkMode ? (
-                  <motion.div
-                    key="sun"
-                    initial={{ rotate: -180, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 180, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <HiSun className="w-5 h-5" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="moon"
-                    initial={{ rotate: 180, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -180, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <HiMoon className="w-5 h-5" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.button>
-            
-            <motion.button 
-              className="md:hidden p-2 rounded-lg text-gray-700 dark:text-gray-300"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              aria-label="Toggle menu"
-            >
-              <AnimatePresence mode="wait">
-                {mobileMenuOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <HiX className="w-6 h-6" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <HiMenu className="w-6 h-6" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.button>
-          </div>
-        </div>
-      </div>
-
-      {/* Enhanced Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div 
-            variants={mobileMenuVariants}
-            initial="closed"
-            animate="open"
-            exit="closed"
-            className="md:hidden overflow-hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-t border-gray-200 dark:border-gray-700"
-          >
-            <div className="container-custom py-6 space-y-1">
               {navLinks.map((link, index) => (
                 <motion.a 
                   key={index}
                   href={link.href}
-                  variants={mobileItemVariants}
-                  className="block py-3 px-4 font-medium text-gray-700 dark:text-gray-300 rounded-lg relative overflow-hidden group"
-                  onClick={() => setMobileMenuOpen(false)}
-                  whileHover={{ x: 10 }}
+                  variants={linkVariants}
+                  className="font-medium text-gray-700 dark:text-gray-300 relative group"
+                  style={{ fontSize: 'clamp(0.875rem, 2vw, 1rem)' }}
+                  whileHover={{ y: -2 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
+                  {link.name}
                   <motion.div
-                    className="absolute inset-0 bg-primary-50 dark:bg-primary-900/20 opacity-0 group-hover:opacity-100"
-                    transition={{ duration: 0.2 }}
+                    className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-primary-500 to-secondary-500"
+                    initial={{ width: 0 }}
+                    whileHover={{ width: "100%" }}
+                    transition={{ duration: 0.3 }}
                   />
-                  <span className="relative z-10">{link.name}</span>
                 </motion.a>
               ))}
+            </motion.nav>
+
+            {/* Enhanced responsive controls */}
+            <div className="flex items-center" style={{ gap: 'clamp(0.75rem, 2vw, 1rem)' }}>
+              <motion.button
+                onClick={toggleTheme}
+                className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 relative overflow-hidden"
+                style={{ 
+                  width: 'clamp(2.5rem, 6vw, 3rem)', 
+                  height: 'clamp(2.5rem, 6vw, 3rem)' 
+                }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                aria-label="Toggle theme"
+              >
+                <AnimatePresence mode="wait">
+                  {darkMode ? (
+                    <motion.div
+                      key="sun"
+                      initial={{ rotate: -180, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 180, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="flex items-center justify-center w-full h-full"
+                    >
+                      <HiSun style={{ fontSize: 'clamp(1rem, 3vw, 1.25rem)' }} />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="moon"
+                      initial={{ rotate: 180, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: -180, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="flex items-center justify-center w-full h-full"
+                    >
+                      <HiMoon style={{ fontSize: 'clamp(1rem, 3vw, 1.25rem)' }} />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.button>
+              
+              <motion.button 
+                className="md:hidden p-2 rounded-lg text-gray-700 dark:text-gray-300"
+                style={{ 
+                  width: 'clamp(2.5rem, 6vw, 3rem)', 
+                  height: 'clamp(2.5rem, 6vw, 3rem)' 
+                }}
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                aria-label="Toggle menu"
+              >
+                <AnimatePresence mode="wait">
+                  {mobileMenuOpen ? (
+                    <motion.div
+                      key="close"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="flex items-center justify-center w-full h-full"
+                    >
+                      <HiX style={{ fontSize: 'clamp(1.25rem, 4vw, 1.5rem)' }} />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="menu"
+                      initial={{ rotate: 90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: -90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="flex items-center justify-center w-full h-full"
+                    >
+                      <HiMenu style={{ fontSize: 'clamp(1.25rem, 4vw, 1.5rem)' }} />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.button>
             </div>
-          </motion.div>
+          </div>
+        </div>
+      </motion.header>
+
+      {/* Enhanced Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            
+            {/* Mobile Menu */}
+            <motion.div 
+              variants={mobileMenuVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              className="fixed top-0 left-0 right-0 z-50 md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700 mobile-menu-container"
+              style={{ 
+                paddingTop: `calc(env(safe-area-inset-top) + ${isScrolled ? '60px' : 'clamp(60px, 10vw, 80px)'})`,
+                paddingLeft: 'env(safe-area-inset-left)',
+                paddingRight: 'env(safe-area-inset-right)',
+                paddingBottom: 'env(safe-area-inset-bottom)'
+              }}
+            >
+              <div className="container-custom py-6 space-y-1">
+                {navLinks.map((link, index) => (
+                  <motion.a 
+                    key={index}
+                    href={link.href}
+                    variants={mobileItemVariants}
+                    className="block py-4 px-4 font-medium text-gray-700 dark:text-gray-300 rounded-lg relative overflow-hidden group"
+                    style={{ fontSize: 'clamp(1rem, 3vw, 1.125rem)' }}
+                    onClick={() => setMobileMenuOpen(false)}
+                    whileHover={{ x: 10 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <motion.div
+                      className="absolute inset-0 bg-primary-50 dark:bg-primary-900/20 opacity-0 group-hover:opacity-100"
+                      transition={{ duration: 0.2 }}
+                    />
+                    <span className="relative z-10">{link.name}</span>
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
-    </motion.header>
+    </>
   )
 }
 
