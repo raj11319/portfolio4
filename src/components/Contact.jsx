@@ -128,7 +128,7 @@ const Contact = () => {
                     <div className="ml-4">
                       <h4 className="text-lg font-medium text-gray-700 dark:text-gray-300">Location</h4>
                       <p className="text-gray-600 dark:text-gray-400">
-                        New Delhi, India
+                        Dehradun, India
                       </p>
                     </div>
                   </div>
