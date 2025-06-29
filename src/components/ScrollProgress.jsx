@@ -1,39 +1,28 @@
 import React, { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useSpring } from 'framer-motion'
 
 const ScrollProgress = () => {
-  const [scrollProgress, setScrollProgress] = useState(0)
-
-  useEffect(() => {
-    const updateScrollProgress = () => {
-      const scrollPx = document.documentElement.scrollTop
-      const winHeightPx = document.documentElement.scrollHeight - document.documentElement.clientHeight
-      const scrolled = scrollPx / winHeightPx
-      setScrollProgress(scrolled)
-    }
-
-    window.addEventListener('scroll', updateScrollProgress)
-    
-    // Initial calculation
-    updateScrollProgress()
-
-    return () => window.removeEventListener('scroll', updateScrollProgress)
-  }, [])
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  })
 
   return (
-    <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 dark:bg-gray-700 z-50">
+    <>
+      {/* Main progress bar */}
       <motion.div
-        className="h-full bg-gradient-to-r from-primary-500 to-secondary-500"
-        style={{
-          width: `${scrollProgress * 100}%`,
-        }}
-        transition={{
-          type: "spring",
-          stiffness: 400,
-          damping: 40
-        }}
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 origin-left z-50"
+        style={{ scaleX }}
       />
-    </div>
+      
+      {/* Subtle glow effect */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500/50 via-secondary-500/50 to-accent-500/50 origin-left z-40 blur-sm"
+        style={{ scaleX }}
+      />
+    </>
   )
 }
 

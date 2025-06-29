@@ -10,29 +10,78 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Loader from './components/Loader'
 import ScrollProgress from './components/ScrollProgress'
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Simulate loading time
+    // Simulate loading time with smoother transition
     const timer = setTimeout(() => {
       setLoading(false)
-    }, 2000)
+    }, 2500)
     
     return () => clearTimeout(timer)
   }, [])
 
+  // Enhanced page transition variants
+  const pageVariants = {
+    initial: { 
+      opacity: 0,
+      scale: 0.95,
+      y: 20
+    },
+    animate: { 
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: 1,
+        ease: [0.16, 1, 0.3, 1],
+        staggerChildren: 0.1
+      }
+    },
+    exit: {
+      opacity: 0,
+      scale: 1.05,
+      transition: {
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1]
+      }
+    }
+  }
+
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {loading ? (
         <Loader key="loader" />
       ) : (
-        <div className="min-h-screen relative">
+        <motion.div 
+          key="main-content"
+          variants={pageVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          className="min-h-screen relative"
+        >
           <ScrollProgress />
           
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-gray-900 dark:to-gray-800 -z-10 opacity-50"></div>
+          {/* Enhanced background with smoother gradients */}
+          <motion.div 
+            className="fixed inset-0 bg-gradient-to-br from-primary-50/50 via-white to-secondary-50/50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 -z-10"
+            animate={{
+              background: [
+                "linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(255, 255, 255, 1), rgba(139, 92, 246, 0.05))",
+                "linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(255, 255, 255, 1), rgba(59, 130, 246, 0.05))",
+                "linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(255, 255, 255, 1), rgba(139, 92, 246, 0.05))"
+              ]
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          />
           
           <Header />
           
@@ -47,7 +96,7 @@ function App() {
           </main>
           
           <Footer />
-        </div>
+        </motion.div>
       )}
     </AnimatePresence>
   )
